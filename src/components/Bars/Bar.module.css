@@ -1,0 +1,60 @@
+.div {
+  background-color: gray;
+  display: inline-block;
+  /* border: 0.5px solid; */
+  width: 12px;
+  height: 200px;
+  margin: 0.11em;
+  align-items: center;
+  align-items: center;
+  border-radius: 5%;
+}
+
+.finished {
+  background-color: green;
+}
+
+.progress {
+  background-color: blue;
+}
+
+.inserted {
+  background-color: purple;
+}
+.min {
+  background-color: red;
+}
+
+.div:hover {
+  background-color: goldenrod;
+  
+}
+
+
+
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.div:hover  .tooltiptext{
+  visibility: visible;
+}
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
+}
+
+/* Tooltip text */
+.div .tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 6px;
+ 
+  /* Position the tooltip text - see examples below! */
+  position: absolute;
+  z-index: 1;
+}
