@@ -1,12 +1,18 @@
 .div {
-  background-color: gray;
+  /* background-color: gray;
   display: inline-block;
-  /* border: 0.5px solid; */
   width: 12px;
   height: 200px;
-  margin: 0.11em;
+  margin: 0.1em;
   align-items: center;
   align-items: center;
+  border-radius: 5%; */
+  
+  background-color: gray;
+  display: inline-block;
+  width: 12px;
+  margin: 1px;
+
   border-radius: 5%;
 }
 
@@ -57,4 +63,35 @@
   /* Position the tooltip text - see examples below! */
   position: absolute;
   z-index: 1;
+}
+@media only screen and (max-width: 600px) {
+    
+  .div {
+    background-color: gray;
+    display: grid;
+    min-width: 1px;
+    max-width: 29px;
+    width: inherit;
+    margin: 1px;
+    border-radius: 5%;
+    justify-items: center;
+    justify-content: center;
+    align-items: center;
+    justify-items: end;
+  }
+  
+.finished {
+  background-color: green;
+}
+
+.progress {
+  background-color: blue;
+}
+
+.inserted {
+  background-color: purple;
+}
+.min {
+  background-color: red;
+}
 }

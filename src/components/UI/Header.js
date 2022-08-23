@@ -26,13 +26,14 @@ function Header(props) {
 
   return (
     <React.Fragment>
-      <h1 style={{ color: "#1976d2" }}>Sorting App</h1>
+      <h1 className={classes.head}>Sorting App</h1>
       <div className={classes.div2}>
           <h3 style={{ color: "#1976d2", margin: "0 auto" }}>Sort Algorithm</h3>
           <ButtonGroup
             variant="outlined"
             aria-label="outlined button group"
             disabled={!props.canPlay}
+            style={{'maxWidth': '100vw'}}
           >
             <Button
               variant={props.algo === "B" ? "contained" : "outlined"}
@@ -104,7 +105,7 @@ function Header(props) {
         </div>
         {startOrStopButton}
         <div>
-          
+
         </div>
         <Button
           variant="outlined"

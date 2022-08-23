@@ -100,6 +100,13 @@ function App() {
     setAlgo(e.target.value);
   }
 
+  async function updateBars(arr) {
+    setBars(() => {
+      setBars(arr);
+    });
+    await sleep(speedDict[speed]);
+  }
+
   async function selectionSort(arr) {
     const newArr = [...arr];
     const n = newArr.length;
@@ -124,36 +131,24 @@ function App() {
         newArr[j].status = "progress";
         setCount((prevState) => (prevState += 1));
 
-        setBars(() => {
-          setBars(newArr);
-        });
-        await sleep(speedDict[speed]);
+        await updateBars(newArr);
 
         if (newArr[j].height < newArr[min_idx].height) {
           newArr[min_idx].status = "regular";
           min_idx = j;
           newArr[min_idx].status = "min";
-          setBars(() => {
-            setBars(newArr);
-          });
-          await sleep(speedDict[speed]);
+          await updateBars(newArr);
         } else {
           newArr[j].status = "regular";
         }
 
-        setBars(() => {
-          setBars(newArr);
-        });
-        await sleep(speedDict[speed]);
+        await updateBars(newArr);
       }
 
       // Swap the found minimum element with the first element
       swap(newArr, min_idx, i);
       newArr[i].status = "finished";
-      setBars(() => {
-        setBars(newArr);
-      });
-      await sleep(speedDict[speed]);
+      await updateBars(newArr);
     }
     if (j === n) newArr[n - 1].status = "finished";
     stop = false;
@@ -175,12 +170,8 @@ function App() {
 
       key = newArr[i];
       j = i - 1;
-      for (let k = 0; k < i; k++) newArr[k].status = "inserted";
       newArr[i].status = "progress";
-      setBars(() => {
-        setBars(newArr);
-      });
-      await sleep(speedDict[speed]);
+      await updateBars(newArr);
 
       /* Move elements of arr[0..i-1], that are  
           greater than key, to one position ahead  
@@ -189,10 +180,7 @@ function App() {
         setCount((prevState) => (prevState += 1));
 
         newArr[j].status = "progress";
-        setBars(() => {
-          setBars(newArr);
-        });
-        await sleep(speedDict[speed]);
+        await updateBars(newArr);
 
         if (stop) {
           setCanStart(true);
@@ -200,10 +188,8 @@ function App() {
         }
 
         newArr[j].status = "inserted";
-        setBars(() => {
-          setBars(newArr);
-        });
-        await sleep(speedDict[speed]);
+        await updateBars(newArr);
+
         newArr[j + 1] = newArr[j];
         j = j - 1;
       }
@@ -214,19 +200,13 @@ function App() {
 
       newArr[j + 1] = key;
       newArr[j + 1].status = "min";
-      setBars(() => {
-        setBars(newArr);
-      });
-      await sleep(speedDict[speed]);
+      await updateBars(newArr);
 
       for (let i = 0; i < n; i++) {
         newArr[i].status = "regular";
       }
 
-      setBars(() => {
-        setBars(newArr);
-      });
-      await sleep(speedDict[speed]);
+      await updateBars(newArr);
     }
 
     if (i === n) {
@@ -253,10 +233,7 @@ function App() {
         newArr[j].status = "progress";
         newArr[j + 1].status = "progress";
 
-        setBars(() => {
-          setBars(newArr);
-        });
-        await sleep(speedDict[speed]);
+        await updateBars(newArr);
         if (stop) {
           setCanStart(true);
           break;
@@ -265,10 +242,7 @@ function App() {
         if (newArr[j].height > newArr[j + 1].height) {
           swap(newArr, j, j + 1);
 
-          setBars(() => {
-            setBars(newArr);
-          });
-          await sleep(speedDict[speed]);
+          await updateBars(newArr);
         }
         newArr[j].status = "regular";
         newArr[j + 1].status = "regular";
@@ -282,9 +256,7 @@ function App() {
           newArr[j + 1].status = "finished";
         }
 
-        setBars(() => {
-          setBars(newArr);
-        });
+        await updateBars(newArr);
       }
     }
     if (!stop) newArr[0].status = "finished";
@@ -327,15 +299,9 @@ function App() {
 
       arr[l + i].status = "progress";
       arr[m + 1 + j].status = "progress";
-      setBars(() => {
-        setBars(arr);
-      });
-      await sleep(speedDict[speed]);
+      await updateBars(arr);
+
       if (L[i]?.height <= R[j]?.height) {
-        setBars(() => {
-          setBars(arr);
-        });
-        await sleep(speedDict[speed]);
         arr[k] = L[i];
         i++;
         k++;
@@ -345,10 +311,7 @@ function App() {
       } else {
         arr[l + i].status = "min";
         arr[m + 1 + j].status = "min";
-        setBars(() => {
-          setBars(arr);
-        });
-        await sleep(speedDict[speed]);
+        await updateBars(arr);
         arr[k] = R[j];
         j++;
         k++;
@@ -358,10 +321,7 @@ function App() {
       }
 
       for (let c = 0; c < arr.length; c++) arr[c].status = "regular";
-      setBars(() => {
-        setBars(arr);
-      });
-      await sleep(speedDict[speed]);
+      await updateBars(arr);
     }
 
     // Copy the remaining elements of
@@ -415,28 +375,19 @@ function App() {
     }
 
     await mergeSort(arr, l, m);
-    setBars(() => {
-      setBars(arr);
-    });
-    await sleep(speedDict[speed]);
+    await updateBars(arr);
     if (stop) {
       return;
     }
 
     await mergeSort(arr, m + 1, r);
-    setBars(() => {
-      setBars(arr);
-    });
-    await sleep(speedDict[speed]);
+    await updateBars(arr);
     if (stop) {
       return;
     }
 
     await merge(arr, l, m, r);
-    setBars(() => {
-      setBars(arr);
-    });
-    await sleep(speedDict[speed]);
+    await updateBars(arr);
   }
 
   async function startSorting() {
@@ -451,20 +402,10 @@ function App() {
     if (algo === "M") {
       setCanStart(false);
       const newArr = structuredClone(bars);
-      const newArr2 = [
-        { height: 129.23, status: "regular" },
-        { height: 246.06, status: "regular" },
-        { height: 92.42, status: "regular" },
-        { height: 33.07, status: "regular" },
-        { height: 213.74, status: "regular" },
-        { height: 240.82, status: "regular" },
-        { height: 27.1, status: "regular" },
-        { height: 55.45, status: "regular" },
-        { height: 198.66, status: "regular" },
-        { height: 151.85, status: "regular" },
-      ];
       await mergeSort(newArr, 0, newArr.length - 1);
       if (!stop) {
+        for (let i = 0; i < newArr.length; i++) newArr[i].status = "finished";
+        await updateBars(newArr);
         setCanStart(true);
       } else {
         stop = !stop;
